@@ -18,7 +18,7 @@ public class Driver
 		FuzzyRelation fr1 = new FuzzyRelation(fzr1);
 		FuzzyRelation fr2 = new FuzzyRelation(fzr2);
 		test = fr1.maxminComposition(fr2);
-		for(int r = 0; r < test.length; r++)
+/*		for(int r = 0; r < test.length; r++)
 		{
 			for(int c = 0;c < test[0].length;c++)
 			{
@@ -26,7 +26,7 @@ public class Driver
 			}
 			System.out.println();
 		}
-		
+*/		
 /*		test = fr1.stdUnion(fr2);
 		System.out.println("TESTING UNION: \n");
 		
@@ -40,7 +40,32 @@ public class Driver
 		}
 */		
 		fr1.maxminTransitive();
-		fr1.printRelation();
+//		fr1.printRelation();
+		
+//		System.out.println(fr1.isTransitive());
+		
+		String[] paramNames = {"b"};
+		String[] paramRanges = {"1"};
+		double[] paramValues = {1};
+		
+		FuzzyComplement fc = new FuzzyComplement("5 2 ^ 5 +", paramNames,paramRanges) ;
+//		fc.printEquation();
+//		fc.printParamNames();
+//		System.out.println(fc.evaluate(.1,paramValues));
+		
+		FuzzyComplement fc1 = new FuzzyComplement("1 a -");
+//		fc1.printEquation();
+//		fc.printParamNames();
+//		System.out.println(fc1.evaluate(.3));
+//		System.out.println(fc1.monotonicity());
+//		System.out.println(fc1.boundaryCondition());
+		
+		String[] sugenoNames = {"y"};
+		String[] sugenoRanges = {"(-1,3)"};
+		
+		FuzzyComplement sugeno = new FuzzyComplement("1 a - y a * 1 + /",sugenoNames,sugenoRanges);
+		System.out.println(sugeno.monotonicity());
+		System.out.println(sugeno.boundaryCondition());
 		
 //		FuzzyRelation fr = new FuzzyRelation();
 //		fr.printRelation();

@@ -27,8 +27,46 @@ abstract public class Util
 		return 1 - fz;
 	}
 	
-	public double sugenoComplement(double fz, double y)	//INCOMPLETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	public double sugenoComplement(double fz, double y)
 	{
-		return 1.0;
+		if(y <= -1)
+		{
+			System.err.println("ERROR INVALID y LESS THAN OR EQUAL TO -1. EXITING.");
+			System.exit(1);
+		}
+		
+		return (1-fz)/(1 + (y*fz));
+	}
+	
+	public double yagerCompiment(double fz, double w)
+	{
+		if(w <= 0)
+		{
+			System.err.println("ERROR INVALID w LESS THAN OR EQUAL TO 0. EXITING.");
+			System.exit(1);
+		}
+		
+		return Math.pow((1 - Math.pow(fz, w)), 1/w);
+	}
+	
+	public String allCaps(String word)
+	{
+		String st = "";
+		char currentChar = ' ';
+		
+		for(int i = 0; i < word.length(); i++)
+		{
+			currentChar = word.charAt(i);
+			if(currentChar >= 'a' && currentChar <= 'z')
+			{
+				st += ((char)(currentChar - 32) + "");
+			}
+			else
+			{
+				st += currentChar;
+			}
+		}
+		
+		return st;
 	}
 }

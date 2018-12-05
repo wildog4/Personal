@@ -129,7 +129,7 @@ public class FuzzyRelation extends Util
 		return union;
 	}
 	
-	public double[][] maxminTransitive()
+	public double[][] maxminTransitive()		//Calculates the max-min transitive closure of the fuzzy matrix
 	{
 		if(fuzzy.length!=fuzzy[0].length)
 		{
@@ -160,26 +160,105 @@ public class FuzzyRelation extends Util
 		return fuzzy;
 	}
 	
-	
-	private boolean isEqual(double[][] t1, double[][] t2) 
+	public boolean isTransitive()		//Checks the fuzzy matrix if it has the transitive property
 	{
-		boolean value = true;
-		
-		for(int r=0; r<fuzzy.length;r++)
+		if(fuzzy.length!=fuzzy[0].length)	//Can't be transitive without rows equaling columns
 		{
-			for(int c=0; c<fuzzy.length;c++)
+			return false;
+		}
+
+		for(int x = 0; x < fuzzy.length; x++)
+		{
+			
+			for(int y = 0; y < fuzzy[0].length; y++)
 			{
-				if(t2[r][c] != t1[r][c])
+				
+				for(int z = 0; z < fuzzy.length; z++)
 				{
-					value = false;
+/*					System.out.println("x: " + x);			//These statements were for debugging purposes
+					System.out.println("y: " + y);
+					System.out.println("z: " + z);
+					System.out.println("fuzzy[x][y]: " + fuzzy[x][y]);
+					System.out.println("fuzzy[y][z]: " + fuzzy[y][z]);
+					System.out.println("fuzzy[x][z]: " + fuzzy[x][z]);
+*/					
+					
+					double temp = min(fuzzy[x][y],fuzzy[y][z]);	
+//					System.out.println("temp: " + temp);
+					
+					System.out.println();
+					if(fuzzy[x][z]<temp)
+					{
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
+	public boolean isReflexive()
+	{
+		if(fuzzy.length!=fuzzy[0].length)	//Can't be reflexive without rows equaling columns
+		{
+			return false;
+		}
+		
+		for(int r = 0; r < fuzzy.length; r++)
+		{
+			if(fuzzy[r][r]!=1)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean isSymmetric()
+	{
+		if(fuzzy.length!=fuzzy[0].length)	//Can't be symmetric without rows equaling columns
+		{
+			return false;
+		}
+		
+		for(int x = 0; x < fuzzy.length; x++)
+		{
+			for(int y = 0; y < fuzzy[0].length; y++)
+			{
+				if(fuzzy[x][x] != fuzzy[y][x])
+				{
+					return false;
 				}
 			}
 		}
 		
-		return value;
+		return true;
+	}
+	
+	
+	private boolean isEqual(double[][] t1, double[][] t2) //Checks if two Matrix have the same values 
+															//in each position
+	{	
+		if(t1.length!=t2.length || t1[0].length!=t2[0].length)
+		{
+			return false;
+		}
+		
+		for(int r=0; r<t1.length;r++)
+		{
+			for(int c=0; c<t1[0].length;c++)
+			{
+				if(t2[r][c] != t1[r][c])
+				{
+					return false;
+				}
+			}
+		}
+		
+		return true;
 	}
 
-	public void printRelation()
+	public void printRelation()	//Prints out the fuzzy matrix with formatting
 	{
 		System.out.println("Fuzzy relation:\n");
 		
